@@ -19,24 +19,29 @@ pipeline {
     stage("build") {
 
       steps {  
-        echo 'building the application...'
+        script{
+          gv.buildApp() 
+        }
       }
     }
     stage("test") {
       when {
         expression {
-          params.executeTests
+          params.executeTests()
         }
       }
       steps {  
-        echo 'testing the application...'
+        script {
+          gv.testApp()
       }
     }
+  }
     stage("deploy") {
 
       steps {  
-        echo 'deploying the application...'
-        echo "deploying version ${params.VERSION}"
+        script {
+          gv.deployApp()
+        }
       }
     }
   }
