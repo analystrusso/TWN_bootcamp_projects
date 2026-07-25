@@ -25,7 +25,7 @@ pipeline {
         stage("build image") {
             steps{
                 script{
-                    buildImage 'analystrusso/twn-bootcamp-repo:jma-3.0'
+                    buildImage 'analystrusso/twn-bootcamp-repo:jma-3.1'
                 }
             }
         }
