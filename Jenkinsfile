@@ -3,7 +3,7 @@
 @Library('jenkins-shared-library@main', retriever: modernSCM(
     [$class: 'GitSCMSource',
     remote: 'https://github.com/analystrusso/jenkins-shared-library.git',
-    credentialsId: 'github-creds])
+    credentialsId: 'github-creds'])
      
 def gv
 
