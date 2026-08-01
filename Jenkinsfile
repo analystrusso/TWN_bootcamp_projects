@@ -70,7 +70,6 @@ pipeline {
                         sh 'git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/TWN_bootcamp_projects.git'
                         sh "git checkout -B ${env.BRANCH_NAME}"
                         sh "git fetch origin ${env.BRANCH_NAME}"
-                        sh "git rebase origin/${env.BRANCH_NAME}"
                         sh 'git add .'
                         sh 'git commit -m "ci:version bump"'
                         sh "git push origin HEAD:${env.BRANCH_NAME}"
