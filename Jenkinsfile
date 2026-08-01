@@ -62,7 +62,9 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh 'git config --global user.email "ajordanr@protonmail.com"'
                         sh 'git config --global user.name "Adam"'
+
                         sh 'git status'
+                        sh 'git branch'
                         sh 'git config --list'
 
                         sh 'git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/TWN_bootcamp_projects.git'
