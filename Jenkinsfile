@@ -68,7 +68,7 @@ pipeline {
                         sh 'git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/TWN_bootcamp_projects.git'
                         sh 'git add .'
                         sh 'git commit -m "ci:version bump"'
-                        sh 'git push origin HEAD:main' 
+                        sh 'git push origin HEAD:jenkins-jobs' 
                     }
                         
                 }
