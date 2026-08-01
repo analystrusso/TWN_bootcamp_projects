@@ -72,6 +72,7 @@ pipeline {
                         sh "git fetch origin ${env.BRANCH_NAME}"
                         sh 'git add .'
                         sh 'git commit -m "ci:version bump"'
+                        sh 'git status'
                         sh "git rebase origin/${env.BRANCH_NAME}"
                         sh "git push origin HEAD:${env.BRANCH_NAME}"
                     }
