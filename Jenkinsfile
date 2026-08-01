@@ -60,8 +60,8 @@ pipeline {
                 script {
                     echo "pushing to github..."
                     withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'git config --global user.email "ajordanr@protonmail.com"'
-                        sh 'git config --global user.name "Adam"'
+                        sh 'git config --global user.email "jenkins@example.com"'
+                        sh 'git config --global user.name "jenkins"'
 
                         sh 'git status'
                         sh 'git branch'
