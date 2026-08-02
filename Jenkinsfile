@@ -50,10 +50,10 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-                    def dockerCmd = 'docker run -p 3080:3080 -d analystrusso/twn-bootcamp-repo:1.1.9-19'
+                    def dockerCmd = "docker run -p 3080:3080 -d ${IMAGE_NAME}"
                     sshagent(['ec2-server-key']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@54.165.70.76 ${dockerCmd}"
-}
+                    }
                 }
             }
         }
