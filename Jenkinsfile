@@ -52,7 +52,7 @@ pipeline {
                 script {
                     def dockerCmd = '''
                         docker rm -f twn-bootcamp || true
-                        docker run --name twn-bootcamp -p 3080:3080 -d analystrusso/twn-bootcamp-repo:1.1.9-19
+                        docker run --name twn-bootcamp -p 3080:3080 -d analystrusso/twn-bootcamp-repo:${IMAGE_NAME}
                         sleep 2
                         docker ps -f name=twn-bootcamp --format "{{.Status}}"
                     ''' 
