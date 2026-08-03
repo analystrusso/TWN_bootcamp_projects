@@ -12,9 +12,6 @@ pipeline {
     tools {
         maven 'Maven'
     }
-    environment {
-        IMAGE_NAME = 'analystrusso/twn-bootcamp-repo'
-    }
     stages {
         stage("increment version") {
             steps {
