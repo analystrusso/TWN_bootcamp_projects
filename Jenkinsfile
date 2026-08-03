@@ -57,7 +57,7 @@ pipeline {
                         docker ps -f name=twn-bootcamp --format "{{.Status}}"
                     """
                     sshagent(['ec2-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.80.120.211 ${dockerCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.80.120.211 '${dockerCmd}'"
                     }
                 }
             }
