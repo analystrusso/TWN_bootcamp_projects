@@ -12,6 +12,9 @@ pipeline {
     tools {
         maven 'Maven'
     }
+    environment {
+        IMAGE_NAME = 'analystrusso/twn-bootcamp-repo'
+    }
     stages {
         stage("increment version") {
             steps {
@@ -52,7 +55,7 @@ pipeline {
                 script {
                     def dockerCmd = """
                         docker rm -f twn-bootcamp || true
-                        docker run --name twn-bootcamp -p 3080:8080 -d analystrusso/twn-bootcamp-repo:${IMAGE_NAME}
+                        docker run --name twn-bootcamp -p 8080:8080 -d analystrusso/twn-bootcamp-repo:${IMAGE_NAME}
                         sleep 2
                         docker ps -f name=twn-bootcamp --format "{{.Status}}"
                     """
