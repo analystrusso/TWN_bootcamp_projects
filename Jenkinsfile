@@ -50,12 +50,12 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-                    def dockerCmd = "
+                    def dockerCmd = '''
                         docker rm -f twn-bootcamp || true
-                        docker run --name twn-bootcamp -p 3080:3080 -d analystrusso/twn-bootcamp-repo:${IMAGE_NAME}
+                        docker run --name twn-bootcamp -p 3080:3080 -d analystrusso/twn-bootcamp-repo:1.1.9-19
                         sleep 2
                         docker ps -f name=twn-bootcamp --format "{{.Status}}"
-                    "
+                    ''' 
                     sshagent(['ec2-server-key']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@3.80.120.211 ${dockerCmd}"
                     }
