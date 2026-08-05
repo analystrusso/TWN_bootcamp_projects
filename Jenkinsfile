@@ -20,7 +20,8 @@ pipeline {
                         sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit'
                         def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                         def version = matcher[0][1]
-                        env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                        env.IMAGE_NAME = "analystrusso/twn-bootcamp-repo"
+                        env.IMAGE_TAG = "$version-$BUILD_NUMBER"
                 }
             }
         }
@@ -39,9 +40,9 @@ pipeline {
                 script {
                     echo "building the docker image..."
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                    sh "docker build -t analystrusso/twn-bootcamp-repo:${IMAGE_NAME} ."
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh "docker push analystrusso/twn-bootcamp-repo:${IMAGE_NAME}"
+                    sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                     }
                 }
             }
@@ -51,7 +52,9 @@ pipeline {
             steps {
                 script {
                     echo "deploying docker image to EC2"
-                    def shellCmd = "bash ./server-cmds.sh"
+
+                    def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME} ${IMAGE_TAG}"
+
                     sshagent(['ec2-server-key']) {
                         sh "scp -o StrictHostKeyChecking=no server-cmds.sh ec2-user@18.215.35.135:/home/ec2-user"
                         sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ec2-user@18.215.35.135:/home/ec2-user"
