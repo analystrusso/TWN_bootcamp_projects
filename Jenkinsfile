@@ -50,14 +50,11 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-                    def dockerCmd = """
-                        docker rm -f twn-bootcamp || true
-                        docker run --name twn-bootcamp -p 8080:8080 -d analystrusso/twn-bootcamp-repo:${IMAGE_NAME}
-                        sleep 2
-                        docker ps -f name=twn-bootcamp --format "{{.Status}}"
-                    """
+                    echo "deploying docker image to EC2"
+                    def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
                     sshagent(['ec2-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.80.120.211 '${dockerCmd}'"
+                        sh "scp docker-compose.yaml ec2-user@18.215.35.135:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@18.215.35.135 ${dockerComposeCmd}"
                     }
                 }
             }
